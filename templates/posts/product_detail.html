@@ -1,0 +1,24 @@
+{% extends 'components/navbar.html' %}
+
+{% block content %}
+
+    <h1>{{ product.name }}</h1>
+    <h4>Brand: <a href="#" class="btn btn-secondary">{{product.category}}</a></h4>
+    <p>{{ product.image }}</p>
+    <p>Content: {{ product.content }}</p>
+    <h6>Price: {{ product.price}}</h6>
+    <p>{{ product.created_at}}</p>
+
+    <h1>Comments</h1>
+    {% for review in product.reviews.all %}
+        <p>
+            {{ review.text }}
+        </p>
+        <p>
+            {{ review.created_at }}
+        </p>
+    {% endfor %}
+
+
+
+{% endblock %}

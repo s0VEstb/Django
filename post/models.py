@@ -5,13 +5,39 @@ models - это БазаДанных
 from django.db import models
 
 #База Данных часов
-class Post(models.Model):
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Product(models.Model):
     image = models.ImageField(upload_to='post_images', null=True, blank=True)
     name = models.CharField(max_length=100)
     content = models.TextField(null=True, blank=True)
     price = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updates_at = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='brand')
+
 
     def __str__(self):
-        return f"{self.name}: {self.price}"
+        return f"{self.category}. {self.name}: {self.price}"
+
+
+class Review(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    text = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment for {self.product.name}"
