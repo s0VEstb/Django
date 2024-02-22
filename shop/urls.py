@@ -2,6 +2,8 @@
 urls.py - файл маршрутизации проекта
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from post.views import (hello_text, current_data_text, shop_list_view,
                         main_page_view, products_detail_view)
@@ -13,4 +15,4 @@ urlpatterns = [
     path('products/', shop_list_view),
     path('', main_page_view),
     path('products/<int:product_id>/', products_detail_view)
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,22 +1,24 @@
 {% extends 'components/navbar.html' %}
-
+{% load static %}
 {% block content %}
 
     <h1>{{ product.name }}</h1>
-    <h4>Brand: <a href="#" class="btn btn-secondary">{{product.category}}</a></h4>
-    <p>{{ product.image }}</p>
+    <h4>Brand:
+        <a href="#" class="btn btn-secondary">{{product.category}}</a>
+    </h4>
+    {% if product.image %}
+        <img src="/media/{{product.image}}" width = 300>
+    {% else %}
+        <img src="{% static 'not_found.jpg' %}" width = 300>
+    {% endif %}
     <p>Content: {{ product.content }}</p>
     <h6>Price: {{ product.price}}</h6>
     <p>{{ product.created_at}}</p>
 
     <h1>Comments</h1>
     {% for review in product.reviews.all %}
-        <p>
-            {{ review.text }}
-        </p>
-        <p>
-            {{ review.created_at }}
-        </p>
+        <p>{{ review.text }}</p>
+        <p>{{ review.created_at }}</p>
     {% endfor %}
 
 
