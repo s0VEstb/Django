@@ -1,0 +1,12 @@
+{% extends 'components/navbar.html' %}}
+{% load static %}
+{% block content %}
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="Create" value="Создать категорию">
+    </form>
+
+</body>
+{% endblock %}

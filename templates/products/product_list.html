@@ -1,0 +1,43 @@
+{% extends 'components/navbar.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <h1>Post list</h1>
+
+    <div class="card-container">
+        {% for product in products %}
+           <div class="card" style="width: 18rem;">
+               {% if product.image %}
+                    <img src="/media/{{ product.image }}">
+               {% else %}
+                    <img src="{% static 'not_found.jpg' %}">
+               {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.price }}</p>
+                <a href="#" class="btn btn-secondary">{{ product.category }}</a>
+                <a href="/products/{{ product.id }}" class="btn btn-primary">Buy</a>
+                </div>
+           </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
+
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-left: 50px;
+        margin-top: 50px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+        flex: 0 0 calc(28% - 30px);
+    }
+</style>
+
+{% endblock %}
