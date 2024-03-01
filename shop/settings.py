@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'post'
+    'post',
+    'user'
 ]
 
 # Middleware - список промежуточных слоев
@@ -144,6 +145,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'attokurov090506@gmail.com'
+EMAIL_HOST_PASSWORD = 'tgnr sliy xxtl xovp'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 JAZZMIN_SETTINGS = {
     "site_logo": "logo2.webp"
 }
+
