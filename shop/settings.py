@@ -17,6 +17,7 @@ settings.py - Файл настроек Django
 """
 
 from pathlib import Path
+from decouple import config
 
 # BASE_DIR - переменная, содержащая путь к директории проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECRET_KEY - секретный ключ проекта
-SECRET_KEY = 'django-insecure-6zo5#&mp2(wio9#3l$_rerz0cqv6w@9j_syk)ftn_m+#i0+=(%'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / config("NAME"),
     }
 }
 
@@ -147,8 +148,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'attokurov090506@gmail.com'
-EMAIL_HOST_PASSWORD = 'tgnr sliy xxtl xovp'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

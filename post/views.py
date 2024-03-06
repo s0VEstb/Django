@@ -4,9 +4,9 @@ views - это Логика
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
-
+from django.db.models import Q
 from post.forms import ProductForm, ReviewForm, CategoryForm
-from post.models import Product, Review, Catalog
+from post.models import Product, Review, Catalog, Category
 
 
 # Create your views here
@@ -22,22 +22,72 @@ def main_page_view(request):
 
 def shop_list_view(request):
     if request.method == 'GET':
+
+        search = request.GET.get("search")
+        category_id = request.GET.get("category")
+        sort = request.GET.get("sort")
+        page = request.GET.get("page", 1)
+
+        category = Category.objects.all()
         products = Product.objects.all()  # SELECT * FROM post
+
+        limit = 6
+        max_pages = len(products) / limit
+        if max_pages != 0:
+            max_pages = int(max_pages) + 1
+        pages = [i for i in range(1, max_pages + 1)]
+
+        start = (int(page) - 1) * limit
+        end = start + limit
+
+        products = products[start:end]
+
+
+
+        if search:
+            products = products.filter(
+                Q(name__icontains=search) |
+                Q(content__icontains=search) |
+                Q(category__name__icontains=search) |
+                Q(catalog__name__icontains=search)
+            )
+        if category_id:
+            products = products.filter(
+                category=category_id
+            )
+
+        if sort == "price<":
+            products = products.order_by("price")
+
+        if sort == "price>":
+            products = products.order_by("-price")
+
+        if sort == "newest":
+            products = products.order_by("-created_at")
+            print(products)
+
+        if sort == "oldest":
+            products = products.order_by("created_at")
+
         return render(request,
                       'products/product_list.html',
-                      {'products': products}
+                      {'products': products,
+                               "category": category,
+                               "pages": pages}
                       )
+
 
 
 def products_detail_view(request, product_id):
     if request.method == 'GET':
+
         try:
             product = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
             return HttpResponse('404 Not Found')
+
         form = ReviewForm()
         context = {'product': product, 'form': form}
-
         return render(request,
                       'products/product_detail.html',
                       context=context)

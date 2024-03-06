@@ -3,8 +3,11 @@
 {% block content %}
 
     <h1>{{ product.name }}</h1>
-    <h4>Brand:
+    <h4>Category:
         <a href="#" class="btn btn-secondary">{{product.category}}</a>
+    </h4>
+    <h4>Catalog:
+        <a href="#" class="btn btn-secondary">{{product.catalog}}</a>
     </h4>
     {% if product.image %}
         <img src="/media/{{product.image}}" width = 300>

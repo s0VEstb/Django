@@ -60,8 +60,6 @@ def login_view(request):
             return render(request, 'user/login.html', context={'form': form})
 
         user = authenticate(**form.cleaned_data)  # User object or None
-        print(user)
-        print(form.cleaned_data)
 
         if not user:
             form.add_error(None, 'Invalid username or password')

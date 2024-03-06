@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=100)
@@ -16,8 +17,11 @@ class RegisterForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data["password"]
         confirm_password = cleaned_data["confirm_password"]
+        username = cleaned_data["username"]
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError("Такой Никнейм уже есть, введите другое")
         if password != confirm_password:
-            raise forms.ValidationError("Не Совпадают !")
+            raise forms.ValidationError("Пароли не Совпадают !")
         return cleaned_data
 
 
