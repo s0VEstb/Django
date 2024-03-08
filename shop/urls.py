@@ -8,7 +8,7 @@ from django.urls import path
 from post.views import (hello_text, shop_list_view,
                         main_page_view, products_detail_view,
                         create_product_view, create_review_view,
-                        create_category_view)
+                        create_category_view, update_product_view)
 
 from user.views import register_view, login_view, profile_view, logout_view, confirm_sms_view
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('create_prod/', create_product_view),
     path('create_categ/', create_category_view),
     path('products/<int:product_id>/create_review/', create_review_view),
+    path('products/<int:product_id>/update/', update_product_view),
 
 
     path('register/', register_view),

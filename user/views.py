@@ -90,6 +90,7 @@ def confirm_sms_view(request):
 
 @login_required(login_url='/login/')
 def profile_view(request):
+    products = request.user.products.all()
     if request.method == "GET":
         return render(request, 'user/profile.html')
 

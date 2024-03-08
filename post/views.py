@@ -7,6 +7,7 @@ from datetime import datetime
 from django.db.models import Q
 from post.forms import ProductForm, ReviewForm, CategoryForm
 from post.models import Product, Review, Catalog, Category
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here
@@ -141,6 +142,27 @@ def create_category_view(request):
             return render(request,
                           'products/create_category.html',
                           context={"form": form})
+        form.save()
+        return redirect('/products/')
+
+
+@login_required(login_url='/login/')
+def update_product_view(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+    except:
+        return HttpResponse(status=404)
+    if request.method == 'GET':
+        form = ProductForm(instance=product)
+        return render(request,
+                      'products/update_product.html',
+                      context={"form": form})
+    elif request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if not form.is_valid():
+            return render(request,
+                          'products/update_product.html',
+                          context={'form': form})
         form.save()
         return redirect('/products/')
 

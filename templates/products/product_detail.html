@@ -18,6 +18,10 @@
     <h6>Price: {{ product.price}}</h6>
     <p>{{ product.created_at}}</p>
 
+    {% if request.user == product.user %}
+        Update: <a href="/products/{{ product.id }}/update/">Update</a>
+    {% endif %}
+
     <h1>Comments</h1>
     {% for review in product.reviews.all %}
         <p>{{ review.text }}</p>

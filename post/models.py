@@ -21,6 +21,12 @@ class Catalog(models.Model):
         return f"{self.name}"
 
 class Product(models.Model):
+    user = models.ForeignKey(
+        'auth.User',
+        on_delete=models.CASCADE,
+        related_name='products',
+        null=True
+    )
     image = models.ImageField(upload_to='post_images', null=True, blank=True)
     name = models.CharField(max_length=100)
     content = models.TextField(null=True, blank=True)

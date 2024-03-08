@@ -8,13 +8,13 @@ class ReviewInline(admin.StackedInline):
 
 @admin.register(Product)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'category', 'catalog')
+    list_display = ('id', 'name', 'user', 'price', 'category', 'catalog')
     list_display_links = ('name',)
     list_editable = ('price', 'category')
     list_filter = ('created_at', 'price', 'category')
     search_fields = ('name', 'category')
     readonly_fields = ('created_at', 'updated_at', 'id')
-    fields = ('id', 'image', 'name', 'price', 'category', 'catalog', 'created_at', 'updated_at')
+    fields = ('id', 'user', 'image', 'name', 'price', 'category', 'catalog', 'created_at', 'updated_at')
     inlines = [ReviewInline]
 
 admin.site.register(Category)
