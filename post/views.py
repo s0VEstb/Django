@@ -41,8 +41,18 @@ def shop_list_view(request):
         start = (int(page) - 1) * limit
         end = start + limit
 
-        products = products[start:end]
+        if sort == "price<":
+            products = products.order_by("price")
 
+        if sort == "price>":
+            products = products.order_by("-price")
+
+        if sort == "newest":
+            products = products.order_by("-created_at")
+            print(products)
+
+        if sort == "oldest":
+            products = products.order_by("created_at")
 
 
         if search:
@@ -57,31 +67,20 @@ def shop_list_view(request):
                 category=category_id
             )
 
-        if sort == "price<":
-            products = products.order_by("price")
+        products = products[start:end]
 
-        if sort == "price>":
-            products = products.order_by("-price")
 
-        if sort == "newest":
-            products = products.order_by("-created_at")
-            print(products)
-
-        if sort == "oldest":
-            products = products.order_by("created_at")
 
         return render(request,
                       'products/product_list.html',
                       {'products': products,
-                               "category": category,
-                               "pages": pages}
+                       'category': category,
+                       "pages": pages}
                       )
-
 
 
 def products_detail_view(request, product_id):
     if request.method == 'GET':
-
         try:
             product = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
@@ -93,18 +92,20 @@ def products_detail_view(request, product_id):
                       'products/product_detail.html',
                       context=context)
 
+
 def create_review_view(request, product_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if not form.is_valid():
             return render(request,
-                      'products/product_detail.html',
-                      context={'form': form})
+                          'products/product_detail.html',
+                          context={'form': form})
         review = form.save(commit=False)
         review.product_id = product_id
         review.save()
 
         return redirect(f'/products/{product_id}')
+
 
 def create_product_view(request):
     if request.method == 'GET':
@@ -118,7 +119,9 @@ def create_product_view(request):
             return render(request,
                           'products/create_product.html',
                           context={"form": form})
-        form.save()
+        product = form.save()
+        product.user = request.user
+        product.save()
         return redirect('/products/')
     # Product.objects.create(
     #     image=form.cleaned_data['image'],
@@ -129,6 +132,7 @@ def create_product_view(request):
     #     catalog=form.cleaned_data['catalog']
     # )
     # Product.objects.create(**form.cleaned_data)
+
 
 def create_category_view(request):
     if request.method == "GET":
@@ -167,6 +171,8 @@ def update_product_view(request, product_id):
         return redirect('/products/')
 
 
-
-
-
+@login_required(login_url='/login/')
+def delete_product_view(request, product_id):
+    product = Product.objects.get(id=product_id)
+    product.delete()
+    return redirect('/products/')

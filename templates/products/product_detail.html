@@ -34,6 +34,12 @@
     <input type="submit" name="Create Review">
 </form>
 
+{% if product.user == request.user %}
+        <form action="/products/{{ product.id }}/delete" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this task?');">
+        </form>
+    {% endif %}
 
 
 {% endblock %}

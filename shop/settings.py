@@ -18,7 +18,6 @@ settings.py - Файл настроек Django
 
 from pathlib import Path
 from decouple import config
-
 # BASE_DIR - переменная, содержащая путь к директории проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -153,7 +152,4 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-JAZZMIN_SETTINGS = {
-    "site_logo": "logo2.webp"
-}
 

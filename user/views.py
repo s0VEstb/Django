@@ -85,6 +85,7 @@ def confirm_sms_view(request):
         sms_code.user.is_active = True
         sms_code.user.save()
         sms_code.delete()
+        login(request, sms_code.user)
         return redirect('/products/')
 
 
@@ -92,7 +93,7 @@ def confirm_sms_view(request):
 def profile_view(request):
     products = request.user.products.all()
     if request.method == "GET":
-        return render(request, 'user/profile.html')
+        return render(request, 'user/profile.html', context={'products': products})
 
 
 def logout_view(request):
