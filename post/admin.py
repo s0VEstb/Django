@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from post.models import Product, Category, Review, Catalog
+from post.models import Product, Category, Review, Catalog, OftenAskedQuestion
 
 class ReviewInline(admin.StackedInline):
     model = Review
@@ -14,9 +14,11 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('created_at', 'price', 'category')
     search_fields = ('name', 'category')
     readonly_fields = ('created_at', 'updated_at', 'id')
-    fields = ('id', 'user', 'image', 'name', 'price', 'category', 'catalog', 'created_at', 'updated_at')
+    fields = ('id', 'user', 'image', 'name', 'content', 'price', 'category', 'catalog', 'created_at', 'updated_at')
     inlines = [ReviewInline]
 
 admin.site.register(Category)
 admin.site.register(Review)
 admin.site.register(Catalog)
+
+admin.site.register(OftenAskedQuestion)

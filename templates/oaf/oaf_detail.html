@@ -1,0 +1,21 @@
+{% extends 'components/navbar.html' %}}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'products/faq_detail.css' %}">
+</head>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Вопрос: {{ oaf.question }}</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Ответ:</h5>
+            <p class="card-text">{{ oaf.answer }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'oaf_list' %}" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}

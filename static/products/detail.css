@@ -1,0 +1,178 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #6e7dff; /* Light background for the whole page */
+    color: #333; /* Dark text for good readability */
+    line-height: 1.6;
+}
+
+/* Container for the product details */
+.container {
+    background-color: #fff; /* White background for the content */
+    border-radius: 8px; /* Rounded corners */
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow around the content */
+}
+
+/* Header Styling */
+h1, h2, h3, h4 {
+    color: #343a40; /* Dark header color for visibility */
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+h2, h3 {
+    margin-top: 30px;
+    color: #007bff;
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+/* Product Info Styling */
+.product-info {
+    margin-bottom: 30px;
+
+}
+
+.product-info h4 {
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Category and Catalog Buttons */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Button for actions */
+.btn-primary, .btn-danger, .btn-success {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Review Section */
+.mt-5 {
+    margin-top: 50px;
+}
+
+.mb-4 {
+    margin-bottom: 30px;
+}
+
+.review-form {
+    margin-top: 20px;
+}
+
+.review-form .form-group {
+    margin-bottom: 15px;
+}
+
+.review-form input, .review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.review-form textarea {
+    height: 120px;
+}
+
+/* Comments Styling */
+.review p {
+    font-size: 1rem;
+    color: #555;
+}
+
+strong {
+    color: #343a40;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .col-md-6 {
+        flex: 0 0 100%;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-6 {
+        flex: 0 0 100%;
+    }
+
+    img.img-fluid {
+        height: auto;
+    }
+}

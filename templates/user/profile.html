@@ -1,63 +1,42 @@
 {% extends 'components/navbar.html' %}
 {% load static %}
 {% block content %}
-    <h1>
-        Profile
-    </h1>
-    <p>
-        <img src="/media/{{ user.profile.avatar }}" alt="">
-    </p>
 
-    <p>
-        Welcome to your profile, {{user.username}}!
-    </p>
-    <p>
-        {{user.email}}
-    </p>
-    <p>
-        {{user.first_name}} {{user.last_name}}
-    </p>
-    <p>
-        age: {{user.profile.age}}
-    </p>
-    <h2>
-        Products:
-    </h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/profile.css' %}">
+</head>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <img src="/media/{{ user.profile.avatar }}" alt="Profile Picture">
+        <h1>{{ user.first_name }}'s Profile</h1>
+        <p>Welcome back, {{ user.username }}!</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+        <p>Age: {{ user.profile.age }}</p>
+    </div>
+
+    <h2>Your Products</h2>
+
     <div class="card-container">
         {% for product in request.user.products.all %}
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 {% if product.image %}
-                    <img src="/media/{{ product.image }}">
+                    <img src="/media/{{ product.image }}" alt="{{ product.name }}">
                 {% else %}
-                    <img src="{% static 'not_found.jpg' %}">
+                    <img src="{% static 'not_found.jpg' %}" alt="Product Image">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.price }}</p>
+                    <p class="card-text">${{ product.price }}</p>
                     <a href="#" class="btn btn-secondary">{{ product.category }}</a>
-                    <a href="/products/{{ product.id }}" class="btn btn-primary">Buy</a>
+                    <a href="/products/{{ product.id }}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <p>
-        <a href="/logout/">Logout</a>
-    </p>
+    <a href="/logout/" class="logout-link">Logout</a>
+</div>
 
 {% endblock %}
-
-<style>
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-left: 50px;
-        margin-top: 50px;
-    }
-
-    .card {
-        margin-bottom: 20px;
-        flex: 0 0 calc(28% - 30px);
-    }
-</style>

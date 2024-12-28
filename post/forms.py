@@ -1,21 +1,15 @@
 from django import forms
-from post.models import Product, Review, Category
+from post.models import Product, Review, Category, OftenAskedQuestion
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['image', 'name', 'content', 'price', 'category', 'catalog']
-        labels = {'image': 'Картинка',
-                  'name': 'Название',
-                  'content': 'Содержание',
-                  'price': 'Цена',
-                  'category': 'Категория',
-                  'catalog': 'Каталог'}
+        fields = ['name', 'content', 'price', 'image', 'category', 'catalog']
 
     def clean_name(self):
         name = self.cleaned_data['name']
         if 'Kanat' in name.capitalize():
-            raise forms.ValidationError('Invalid name')
+            raise forms.ValidationError('Invalid name Kanat')
         return name
 
     def clean(self):
@@ -34,10 +28,19 @@ class ReviewForm(forms.ModelForm):
         labels = {'text': 'Отзыв'}
 
 
+
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'description']
         labels = {'name': 'Название',
                   'description': 'Описание'}
+
+
+class OAF(forms.ModelForm):
+    class Meta:
+        model = OftenAskedQuestion
+        fields = ['question', 'answer']
+        labels = {'question': 'Вопрос',
+                  'answer': 'Ответ'}
 

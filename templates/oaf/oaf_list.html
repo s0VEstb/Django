@@ -1,0 +1,20 @@
+{% extends 'components/navbar.html' %}
+{% load static %}
+
+
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'products/faq.css' %}">
+</head>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Часто задаваемые вопросы</h1>
+
+    <div class="list-group">
+        {% for question in oaf %}
+        <a href="{% url 'oaf_detail' question.id %}" class="list-group-item list-group-item-action">
+            <h5>{{ question.question }}</h5>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

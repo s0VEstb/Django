@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
 from django.db.models import Q
-from post.forms import ProductForm, ReviewForm, CategoryForm
-from post.models import Product, Review, Catalog, Category
+from post.forms import ProductForm, ReviewForm, CategoryForm, OAF
+from post.models import Product, Review, Catalog, Category, OftenAskedQuestion
 from django.contrib.auth.decorators import login_required
 
 
@@ -102,6 +102,7 @@ def create_review_view(request, product_id):
                           context={'form': form})
         review = form.save(commit=False)
         review.product_id = product_id
+        review.user = request.user
         review.save()
 
         return redirect(f'/products/{product_id}')
@@ -176,3 +177,19 @@ def delete_product_view(request, product_id):
     product = Product.objects.get(id=product_id)
     product.delete()
     return redirect('/products/')
+
+
+def oaf_list_view(request):
+    if request.method == 'GET':
+        oaf = OftenAskedQuestion.objects.all()
+        return render(request,
+                      'oaf/oaf_list.html',
+                      context={"oaf": oaf})
+
+
+def oaf_detail_view(request, oaf_id):
+    if request.method == 'GET':
+        oaf = OftenAskedQuestion.objects.get(id=oaf_id)
+        return render(request,
+                      'oaf/oaf_detail.html',
+                      context={"oaf": oaf})
